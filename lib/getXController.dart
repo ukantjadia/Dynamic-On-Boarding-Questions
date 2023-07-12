@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 // import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class myController extends GetxController{
-  var name1="".obs;
-var lnaem="".obs;
+  RxString selected="".obs;
+var name1="".obs;
 var mobile="".obs;
 RxInt type=0.obs;
 

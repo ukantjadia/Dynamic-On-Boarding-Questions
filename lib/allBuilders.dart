@@ -36,7 +36,7 @@ List<String> dropdownvalue2 = <String>[
   'One',
   'Two',
 ];
-String selected = list[0];
+
 // String dropdownvalue = list.first;
 final AppColors colors = AppColors();
 
@@ -141,7 +141,8 @@ Widget EnterForm(int index) {
 // }
 
 Widget DropdownSingleSelection(int index) {
-  ///
+locate.selected = list[0].obs;
+  ///Loca
   /// for question type :--> dropdown selection selection
   ///
   // return ListView.builder(
@@ -154,7 +155,7 @@ Widget DropdownSingleSelection(int index) {
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: DropdownButton<String>(
-          value: locate.controllerMap[index],
+          value: locate.selected.toString(),
           items: list.map<DropdownMenuItem<String>>(
             (String item) {
               return DropdownMenuItem<String>(
@@ -176,10 +177,12 @@ Widget DropdownSingleSelection(int index) {
 
             locate.controllerMap[index] = value!;
             // });
-            // selected = locate.controllerMap[index].toString();
+            locate.selected = value.obs;
             // locate.myDropdown[index] = value!;
             debugPrint("${locate.controllerMap}");
-            // selected = value;
+            // Obx(() => locate.selected = value,)
+
+            
             // debugPrint("$dropdownvalue");
           },
         ),
