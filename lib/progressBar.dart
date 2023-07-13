@@ -27,7 +27,7 @@ class _CustomStepperState extends State<CustomStepper> {
   final homePage homepage = homePage();
 
   List<Widget> stepslist = [
-    // homePage(),
+    homePage(),
     first(),
     first(),
     first(),
@@ -103,7 +103,6 @@ class _CustomStepperState extends State<CustomStepper> {
 
           Expanded(
             child: Container(
-              color: Colors.red,
               child: PageView(
                 //only scroll with bubbles
                 physics: NeverScrollableScrollPhysics(),
@@ -166,14 +165,16 @@ class StepperComponent extends StatelessWidget {
                         height: 30,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: index == currentIndex
-                              ? Colors.orange
-                              : Colors.transparent,
-                          border: Border.all(
-                              color: currentIndex >= index
-                                  ? Colors.orange
-                                  : Colors.black12),
-                        ),
+                        color: currentIndex >= index +1
+                        // index == currentIndex
+                            ? colors.primary
+                            : colors.bg,
+                        border: Border.all(
+                            color: currentIndex >= index
+                                ? colors.primary
+                                : colors.border),
+                      ),
+                      child:currentIndex >= index +1 ? Icon(Icons.check,color: colors.bg,) : Text('')
                       ),
                     ),
                   ],
@@ -195,15 +196,18 @@ class StepperComponent extends StatelessWidget {
                       width: 30,
                       height: 30,
                       decoration: BoxDecoration(
+
                         borderRadius: BorderRadius.circular(100),
-                        color: index == currentIndex
-                            ? Colors.orange
-                            : Colors.transparent,
+                        color: currentIndex >= index +1
+                        // index == currentIndex
+                            ? colors.primary
+                            : colors.bg,
                         border: Border.all(
                             color: currentIndex >= index
-                                ? Colors.orange
-                                : Colors.black12),
+                                ? colors.primary
+                                : colors.border),
                       ),
+                      child:currentIndex >= index +1 ? Icon(Icons.check,color: colors.bg,) : Text('')
                     ),
                   ),
                   //this the ligne
@@ -212,8 +216,8 @@ class StepperComponent extends StatelessWidget {
                     width: 66,
                     //why index+1 we want to turn the ligne orange that precede the active bubble
                     color: currentIndex >= index + 1
-                        ? Colors.orange
-                        : Colors.black12,
+                        ? colors.primary
+                        : colors.border,
                   ),
                 ],
               ),

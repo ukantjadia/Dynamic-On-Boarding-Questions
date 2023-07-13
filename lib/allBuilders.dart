@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_boarding_dynamic_que/getXController.dart';
@@ -20,7 +18,6 @@ List<String> list = <String>[
 ];
 bool isSelected = false;
 
-// String dropdownvalue = list.first;
 final AppColors colors = AppColors();
 
 class _homePageState extends State<homePage> {
@@ -42,8 +39,8 @@ class _homePageState extends State<homePage> {
               children: [
                 for (int x = 0; x < locate.myList.length; x++) ...[
                   if (locate.myList[x] == '5') ...[
-                    MultipleSelection()
-                    // yesNoConatainer()
+                    // MultipleSelection()
+                    yesNoConatainer(x.toString())
                   ] else if (locate.myList[x] == '1') ...[
                     // MultipleSelection()
                   ] else if (locate.myList[x] == '2') ...[
@@ -237,62 +234,107 @@ Widget MultipleSelection() {
   );
 }
 
-Widget yesNoConatainer() {
+Widget yesNoConatainer(String index) {
+  // bool yes = true;
   return Container(
+    padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
     width: double.infinity,
+    // height: 64,
     decoration: BoxDecoration(
       color: colors.secondaryBg,
       borderRadius: BorderRadius.all(
-        Radius.circular(20),
+        Radius.circular(10),
       ),
     ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    child: Column(
       children: [
-        Text(
-          "Do you have passport ?",
-          style: TextStyle(color: colors.title, fontSize: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Do you have passport ?",
+              style: TextStyle(color: colors.title, fontSize: 16),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 0, bottom: 0, right: 5, left: 5),
+              // width: wi,
+              height: 34,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: colors.primary,
+                borderRadius: BorderRadius.circular(70),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  /// * this is yes container
+                  Obx(
+                    () => Container(
+                      // padding: EdgeInsets.only(top: 5, bottom: 5, right: 5),
+                      width: 50,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: locate.yes.value ? colors.primary : colors.bg,
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Yes',
+                        style: TextStyle(
+                            color:
+                                locate.yes.value ? colors.bg : colors.primary,
+                            fontSize: 16),
+                      ),
+                    ).onTap(() {
+                      //     setState(() {
+                      // });
+                      locate.yes.value = false;
+                      debugPrint(" from first cntaienr ${locate.yes.value}");
+                    }),
+                  ),
+
+                  /// * this is no container
+                  Obx(
+                    () => Container(
+                      // padding: EdgeInsets.only(top: 5, bottom: 5, right: 5),
+                      width: 50,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: locate.yes.value ? colors.bg : colors.primary,
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'No',
+                        style: TextStyle(
+                            color:
+                                locate.yes.value ? colors.primary : colors.bg,
+                            fontSize: 16),
+                      ),
+                    ).onTap(
+                      () {
+                        locate.yes.value = true;
+                        debugPrint(" from second cntaienr ${locate.yes.value}");
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
-        Container(
-          padding: EdgeInsets.only(top: 15, bottom: 15, right: 10),
-          decoration: BoxDecoration(
-            color: colors.primary,
-            borderRadius: BorderRadius.circular(70),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                padding: EdgeInsets.only(top: 5, bottom: 5, right: 5),
-                width: 50,
-                height: 24,
-                decoration: BoxDecoration(
-                  color: colors.bg,
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  'No',
-                  style: TextStyle(color: colors.primary, fontSize: 16),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 5, bottom: 5, right: 5),
-                width: 50,
-                height: 24,
-                decoration: BoxDecoration(
-                  color: colors.primary,
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  'Yes',
-                  style: TextStyle(color: colors.bg, fontSize: 16),
-                ),
-              ),
-            ],
-          ),
-        )
+
+        Obx(() => Column(
+              children: [
+                if (locate.yes.value == false) ...[
+                  EnterForm(index),
+                ] else ...[
+                  Container(),
+                ]
+              ],
+            ))
+
+        // locate.yes.value ?  : ,
       ],
     ),
   );

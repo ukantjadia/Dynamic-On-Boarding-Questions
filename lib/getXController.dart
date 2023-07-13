@@ -19,6 +19,7 @@ class myController extends GetxController {
   ];
   // RxBool isSelected = true.obs;
   RxInt isSelected = 0.obs;
+  RxBool yes = false.obs;
   
 
 
