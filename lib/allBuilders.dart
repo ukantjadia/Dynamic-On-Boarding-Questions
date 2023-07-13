@@ -17,25 +17,8 @@ myController locate = Get.find<myController>();
 List<String> list = <String>[
   'One',
   'Two',
-  'Three',
-  'Four',
 ];
-List<int> list1 = <int>[1, 2, 3, 4, 5];
-List<String> dropdownvalue = <String>[
-  'One',
-  'Two',
-  'Three',
-  'Four',
-  'One',
-  'Two',
-  'Three',
-  'Four',
-  'One',
-];
-List<String> dropdownvalue2 = <String>[
-  'One',
-  'Two',
-];
+bool isSelected = false;
 
 // String dropdownvalue = list.first;
 final AppColors colors = AppColors();
@@ -50,57 +33,39 @@ class _homePageState extends State<homePage> {
       child: Scaffold(
         backgroundColor: colors.bg,
         body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            // verticalDirection: VerticalDirection.up,
-
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text("data"),
-              for (int x = 0; x < 4; x++) ...[
-                // Container(child: Text("${locate.myList[x]}")),
-                if (list1[x] == 0) ...[
-                  EnterForm(x)
-                ] else if (list1[x] == 1) ...[
-                  DropdownSingleSelection(x)
-                  // MultipleSelection()
-                ] else if (list1[x] == 2) ...[
-                  EnterForm(x),
-                  DropdownSingleSelection(x)
-
-                  // MultipleSelection()
-                ] else ...[
-                  // MultipleSelection()
-                  DropdownSingleSelection(x)
-
-                  // continue,
-                ]
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                for (int x = 0; x < locate.myList.length; x++) ...[
+                  if (locate.myList[x] == '5') ...[
+                    MultipleSelection()
+                    // yesNoConatainer()
+                  ] else if (locate.myList[x] == '1') ...[
+                    // MultipleSelection()
+                  ] else if (locate.myList[x] == '2') ...[
+                    // EnterForm(x.toString())
+                    // yesNoConatainer()
+                  ] else ...[
+                    Text("not mention ${x}")
+                  ]
+                ],
+                ElevatedButton(
+                    onPressed: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => test(),
+                      //   ),
+                      // );
+                      debugPrint("   ${locate.myList}");
+                    },
+                    child: Text("to send data")),
               ],
-              // if (locate.type == 0) ...[
-              //   EnterForm(),
-              // ] else if (locate.type == 1) ...[
-              //   DropdownSingleSelection()
-              // ] else if (locate.type == 2) ...[
-              //   MultipleSelection()
-              // ],
-              ElevatedButton(
-                  onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => test(),
-                    //   ),
-                    // );
-                    debugPrint("   ${locate.myList}");
-                    // setState((
-                    // ) {
-                    //   locate.name1 = names[0].obs;
-                    //   print(locate.name1);
-                    // });
-                  },
-                  child: Text("to send data")),
-            ],
+            ),
           ),
         ),
       ),
@@ -109,27 +74,24 @@ class _homePageState extends State<homePage> {
   }
 }
 
-Widget EnterForm(int index) {
+Widget EnterForm(String index) {
   ///
   /// for question type :--> enter form question
   ///
-  // return ListView.builder(
-  //   shrinkWrap: true,
-  //   itemCount: locate.myList.length,
-  //   itemBuilder: (BuildContext context, int index) {
-  // _controllers.add(new TextEditingController());
+  int indexInt = int.parse(index);
   return Column(
     children: [
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(
+          // initialValue: ,
           decoration: InputDecoration(
-            hintText: "Enter your name",
+            hintText: "${locate.controllerMap?[index] ?? ""}",
             fillColor: colors.bg,
           ),
           onChanged: (value) {
             locate.name1 = value.obs;
-            locate.controllerMap[index] = value;
+            locate.controllerMap?[index] = value;
             debugPrint("${locate.controllerMap}");
           },
         ),
@@ -137,19 +99,13 @@ Widget EnterForm(int index) {
     ],
   );
 }
-// );
-// }
 
-Widget DropdownSingleSelection(int index) {
-locate.selected = list[0].obs;
+Widget DropdownSingleSelection(String index) {
+  locate.selected = list[0].obs;
+
   ///Loca
   /// for question type :--> dropdown selection selection
   ///
-  // return ListView.builder(
-  //   shrinkWrap: true,
-  //   itemCount: locate.myList.length,
-  //   itemBuilder: (BuildContext context, int index) {
-  // _controllers.add(new TextEditingController());
   return Column(
     children: [
       Padding(
@@ -170,53 +126,39 @@ locate.selected = list[0].obs;
               );
             },
           ).toList(),
-          onChanged: (String? value) {
+          onChanged: (value) {
             // setState(() {
-
             // debugPrint("${selected}");
-
-            locate.controllerMap[index] = value!;
+            locate.controllerMap?[index] = value!;
             // });
-            locate.selected = value.obs;
+            // locate.selected = value.obs;
             // locate.myDropdown[index] = value!;
             debugPrint("${locate.controllerMap}");
-            // Obx(() => locate.selected = value,)
-
-            
-            // debugPrint("$dropdownvalue");
           },
         ),
       ),
-      Obx(() => Text(
-        " index from lis builder ${locate.controllerMap[index]}",
-        style: TextStyle(
-          color: colors.title,
+      Obx(
+        () => Text(
+          " index from lis builder ${locate.controllerMap?[index]}",
+          style: TextStyle(
+            color: colors.title,
+          ),
         ),
-      ),)
-      
+      )
     ],
   );
 }
-//   );
-// }
 
 Widget MultipleSelection() {
   ///
   /// for question type :--> Multiple selection question
   ///
-  // return ListView.builder(
-  //   shrinkWrap: true,
-  //   // itemCount: locate.myList.length,
-  //   itemCount: 1,
-  //   itemBuilder: (BuildContext context, int index) {
-  // _controllers.add(new TextEditingController());
   return Container(
     padding: EdgeInsets.all(10),
-    // color: Color.fromARGB(255, 127, 170, 212),
-    width: 353,
+    width: double.infinity,
     decoration: BoxDecoration(
-        color: colors.secondaryBg, border: Border.all(color: colors.border)),
-    // height: 242,
+      color: colors.bg,
+    ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,18 +176,59 @@ Widget MultipleSelection() {
         ),
         GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: dropdownvalue.length >= 3 ? 3 : 2,
+              crossAxisCount: list.length >= 3 ? 3 : 2,
               mainAxisSpacing: 15,
               crossAxisSpacing: 17,
-              childAspectRatio: 3.59),
+              childAspectRatio: 3.05),
           shrinkWrap: true,
-          itemCount: dropdownvalue.length,
+          itemCount: list.length,
           itemBuilder: (context, index) {
-            return Container(
-              height: 34,
-              width: 90,
-              color: colors.bg,
-              child: Text("ssdfsdf"),
+            return Obx(
+              () {
+                return GestureDetector(
+                  onTap: () {
+                    locate.isSelected.value = index;
+                    debugPrint(' ${locate.isSelected}');
+                  },
+                  child: Container(
+                    height: 34,
+                    width: 90,
+                    decoration: BoxDecoration(
+                      color: locate.isSelected == index
+                          ? colors.bg
+                          : colors.secondaryBg,
+                      boxShadow: locate.isSelected == index
+                          ? <BoxShadow>[
+                              const BoxShadow(
+                                  color: Color.fromARGB(19, 8, 0, 0),
+                                  blurRadius: 6.0,
+                                  offset: Offset(0.0, 0.0))
+                            ]
+                          : <BoxShadow>[
+                              const BoxShadow(
+                                  color: Color.fromARGB(0, 243, 242, 242),
+                                  blurRadius: 0.0,
+                                  offset: Offset(0.0, 0.0))
+                            ],
+                    ),
+                    child: Center(
+                      child: //Text(" ${locate.isSelected.value}")
+                          Text(
+                        "Male",
+                        style: locate.isSelected == index
+                            ? TextStyle(
+                                fontSize: 16,
+                                color: colors.primary,
+                                fontWeight: FontWeight.w400)
+                            : TextStyle(
+                                fontSize: 16,
+                                color: colors.subtitle,
+                                fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ),
+                );
+              },
             );
           },
         )
@@ -253,5 +236,64 @@ Widget MultipleSelection() {
     ),
   );
 }
-//   );
-// }
+
+Widget yesNoConatainer() {
+  return Container(
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: colors.secondaryBg,
+      borderRadius: BorderRadius.all(
+        Radius.circular(20),
+      ),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "Do you have passport ?",
+          style: TextStyle(color: colors.title, fontSize: 16),
+        ),
+        Container(
+          padding: EdgeInsets.only(top: 15, bottom: 15, right: 10),
+          decoration: BoxDecoration(
+            color: colors.primary,
+            borderRadius: BorderRadius.circular(70),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: 5, bottom: 5, right: 5),
+                width: 50,
+                height: 24,
+                decoration: BoxDecoration(
+                  color: colors.bg,
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  'No',
+                  style: TextStyle(color: colors.primary, fontSize: 16),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 5, bottom: 5, right: 5),
+                width: 50,
+                height: 24,
+                decoration: BoxDecoration(
+                  color: colors.primary,
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  'Yes',
+                  style: TextStyle(color: colors.bg, fontSize: 16),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    ),
+  );
+}

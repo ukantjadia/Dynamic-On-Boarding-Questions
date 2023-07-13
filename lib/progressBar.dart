@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_boarding_dynamic_que/allBuilders.dart';
@@ -10,30 +11,33 @@ class CustomStepper extends StatefulWidget {
   @override
   State<CustomStepper> createState() => _CustomStepperState();
 }
-myController control = Get.find<myController>();
 
+myController control = Get.find<myController>();
 
 class _CustomStepperState extends State<CustomStepper> {
   int _currentIndex = 0;
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
 
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
-  final homePage homepage = homePage(); 
+
+  final homePage homepage = homePage();
 
   List<Widget> stepslist = [
-    homePage(),
+    // homePage(),
     first(),
-    // caller.
+    first(),
+    first(),
+    first(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'CUSTOM STEPPER',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
@@ -42,11 +46,11 @@ class _CustomStepperState extends State<CustomStepper> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           //let's add some padding press alt enter
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -64,7 +68,6 @@ class _CustomStepperState extends State<CustomStepper> {
                   StepperComponent(
                     currentIndex: _currentIndex,
                     index: 1,
-                    isLast: true,
                     onTap: () {
                       setState(() {
                         _currentIndex = 1;
@@ -72,7 +75,27 @@ class _CustomStepperState extends State<CustomStepper> {
                       _pageController.jumpToPage(1);
                     },
                   ),
-                  
+                  StepperComponent(
+                    currentIndex: _currentIndex,
+                    index: 2,
+                    onTap: () {
+                      setState(() {
+                        _currentIndex = 2;
+                      });
+                      _pageController.jumpToPage(2);
+                    },
+                  ),
+                  StepperComponent(
+                    currentIndex: _currentIndex,
+                    isLast: true,
+                    index: 3,
+                    onTap: () {
+                      setState(() {
+                        _currentIndex = 3;
+                      });
+                      _pageController.jumpToPage(3);
+                    },
+                  ),
                 ],
               ),
             ),
@@ -80,17 +103,14 @@ class _CustomStepperState extends State<CustomStepper> {
 
           Expanded(
             child: Container(
-                child: PageView(
-              //only scroll with bubbles
-              physics: NeverScrollableScrollPhysics(),
-              controller: _pageController,
-              children: [stepslist[_currentIndex]],
-              // itemCount: 4,
-              // itemBuilder: (context, index) {
-              // return Center(
-              //   child: Text('Page ${index}'),
-              // );
-            )),
+              color: Colors.red,
+              child: PageView(
+                //only scroll with bubbles
+                physics: NeverScrollableScrollPhysics(),
+                controller: _pageController,
+                children: [stepslist[_currentIndex]],
+              ),
+            ),
           ),
           ElevatedButton(
             onPressed: () {
@@ -108,6 +128,7 @@ class _CustomStepperState extends State<CustomStepper> {
   }
 }
 
+// ignore: must_be_immutable
 class StepperComponent extends StatelessWidget {
   // index describe the position of our bubble
   int index;
@@ -136,6 +157,7 @@ class StepperComponent extends StatelessWidget {
               children: [
                 Row(
                   children: [
+                    // Text("from col row in return "),
                     //this is the bubble
                     GestureDetector(
                       onTap: onTap,
@@ -156,50 +178,48 @@ class StepperComponent extends StatelessWidget {
                     ),
                   ],
                 ),
-                //index+1 we dont wanna show 0 in the screen since our index will start at 0
+                // //index+1 we dont wanna show 0 in the screen since our index will start at 0
                 Text('Page ${index + 1}'),
               ],
             )
-          : Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          : //Text("sdfjsdlfjsdlfjadfafdalfjaljflakjfdlskjdflasdjflajdf\ndjflsdjflsdf")
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      //this is the bubble
-                      GestureDetector(
-                        onTap: onTap,
-                        child: Container(
-                          width: 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: index == currentIndex
-                                ? Colors.orange
-                                : Colors.transparent,
-                            border: Border.all(
-                                color: currentIndex >= index
-                                    ? Colors.orange
-                                    : Colors.black12),
-                          ),
-                        ),
-                      ),
-                      //this the ligne
-                      Container(
-                        height: 2,
-                        width: 66,
-
-                        //why index+1 we want to turn the ligne orange that precede the active bubble
-                        color: currentIndex >= index + 1
+                  //this is the bubble
+                  GestureDetector(
+                    onTap: onTap,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: index == currentIndex
                             ? Colors.orange
-                            : Colors.black12,
+                            : Colors.transparent,
+                        border: Border.all(
+                            color: currentIndex >= index
+                                ? Colors.orange
+                                : Colors.black12),
                       ),
-                    ],
+                    ),
                   ),
-                  Text('Page ${index + 1}'),
+                  //this the ligne
+                  Container(
+                    height: 2,
+                    width: 66,
+                    //why index+1 we want to turn the ligne orange that precede the active bubble
+                    color: currentIndex >= index + 1
+                        ? Colors.orange
+                        : Colors.black12,
+                  ),
                 ],
               ),
-            ),
+              Text('Page ${index + 1}'),
+            ],
+          ),
     );
   }
 }
@@ -207,13 +227,10 @@ class StepperComponent extends StatelessWidget {
 Widget first() {
   return Column(
     children: [
-      Text("the type of Questions ${control.type}"),
-      Obx(() =>  Text("${control.allControlle}"),),
-      
-      
-      // Text(" vales are ${control.myList.length}"),
+      // Text("the type of Questions ${control.type}"),
+      Obx(
+        () => Text("${control.controllerMap}"),
+      ),
     ],
   );
 }
-
-
