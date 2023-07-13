@@ -42,10 +42,10 @@ class _homePageState extends State<homePage> {
                     // MultipleSelection()
                     yesNoConatainer(x.toString())
                   ] else if (locate.myList[x] == '1') ...[
-                    // MultipleSelection()
+                    MultipleSelection()
                   ] else if (locate.myList[x] == '2') ...[
-                    // EnterForm(x.toString())
-                    // yesNoConatainer()
+                    EnterForm(x.toString()),
+                    // yesNoConatainer(x.toString())
                   ] else ...[
                     Text("not mention ${x}")
                   ]

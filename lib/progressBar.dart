@@ -26,7 +26,7 @@ class _CustomStepperState extends State<CustomStepper> {
 
   final homePage homepage = homePage();
 
-  List<Widget> stepslist = [
+  List<Widget> onBoardingCategories = [
     homePage(),
     first(),
     first(),
@@ -55,47 +55,20 @@ class _CustomStepperState extends State<CustomStepper> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  StepperComponent(
-                    currentIndex: _currentIndex,
-                    index: 0,
-                    onTap: () {
-                      setState(() {
-                        _currentIndex = 0;
-                      });
-                      _pageController.jumpToPage(0);
-                    },
-                  ),
-                  StepperComponent(
-                    currentIndex: _currentIndex,
-                    index: 1,
-                    onTap: () {
-                      setState(() {
-                        _currentIndex = 1;
-                      });
-                      _pageController.jumpToPage(1);
-                    },
-                  ),
-                  StepperComponent(
-                    currentIndex: _currentIndex,
-                    index: 2,
-                    onTap: () {
-                      setState(() {
-                        _currentIndex = 2;
-                      });
-                      _pageController.jumpToPage(2);
-                    },
-                  ),
-                  StepperComponent(
-                    currentIndex: _currentIndex,
-                    isLast: true,
-                    index: 3,
-                    onTap: () {
-                      setState(() {
-                        _currentIndex = 3;
-                      });
-                      _pageController.jumpToPage(3);
-                    },
-                  ),
+                  for (int category = 0;
+                      category < onBoardingCategories.length;
+                      category++) ...[
+                    StepperComponent(
+                      currentIndex: _currentIndex,
+                      index: category,
+                      onTap: () {
+                        setState(() {
+                          _currentIndex = category;
+                        });
+                        _pageController.jumpToPage(category);
+                      },
+                    ),
+                  ]
                 ],
               ),
             ),
@@ -107,7 +80,7 @@ class _CustomStepperState extends State<CustomStepper> {
                 //only scroll with bubbles
                 physics: NeverScrollableScrollPhysics(),
                 controller: _pageController,
-                children: [stepslist[_currentIndex]],
+                children: [onBoardingCategories[_currentIndex]],
               ),
             ),
           ),
@@ -161,21 +134,25 @@ class StepperComponent extends StatelessWidget {
                     GestureDetector(
                       onTap: onTap,
                       child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                        color: currentIndex >= index +1
-                        // index == currentIndex
-                            ? colors.primary
-                            : colors.bg,
-                        border: Border.all(
-                            color: currentIndex >= index
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: currentIndex >= index + 1
+                                // index == currentIndex
                                 ? colors.primary
-                                : colors.border),
-                      ),
-                      child:currentIndex >= index +1 ? Icon(Icons.check,color: colors.bg,) : Text('')
-                      ),
+                                : colors.bg,
+                            border: Border.all(
+                                color: currentIndex >= index
+                                    ? colors.primary
+                                    : colors.border),
+                          ),
+                          child: currentIndex >= index + 1
+                              ? Icon(
+                                  Icons.check,
+                                  color: colors.bg,
+                                )
+                              : Text('')),
                     ),
                   ],
                 ),
@@ -185,45 +162,48 @@ class StepperComponent extends StatelessWidget {
             )
           : //Text("sdfjsdlfjsdlfjadfafdalfjaljflakjfdlskjdflasdjflajdf\ndjflsdjflsdf")
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  //this is the bubble
-                  GestureDetector(
-                    onTap: onTap,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-
-                        borderRadius: BorderRadius.circular(100),
-                        color: currentIndex >= index +1
-                        // index == currentIndex
-                            ? colors.primary
-                            : colors.bg,
-                        border: Border.all(
-                            color: currentIndex >= index
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    //this is the bubble
+                    GestureDetector(
+                      onTap: onTap,
+                      child: Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: currentIndex >= index + 1
+                                // index == currentIndex
                                 ? colors.primary
-                                : colors.border),
-                      ),
-                      child:currentIndex >= index +1 ? Icon(Icons.check,color: colors.bg,) : Text('')
+                                : colors.bg,
+                            border: Border.all(
+                                color: currentIndex >= index
+                                    ? colors.primary
+                                    : colors.border),
+                          ),
+                          child: currentIndex >= index + 1
+                              ? Icon(
+                                  Icons.check,
+                                  color: colors.bg,
+                                )
+                              : Text('')),
                     ),
-                  ),
-                  //this the ligne
-                  Container(
-                    height: 2,
-                    width: 66,
-                    //why index+1 we want to turn the ligne orange that precede the active bubble
-                    color: currentIndex >= index + 1
-                        ? colors.primary
-                        : colors.border,
-                  ),
-                ],
-              ),
-              Text('Page ${index + 1}'),
-            ],
-          ),
+                    //this the ligne
+                    Container(
+                      height: 2,
+                      width: 66,
+                      //why index+1 we want to turn the ligne orange that precede the active bubble
+                      color: currentIndex >= index + 1
+                          ? colors.primary
+                          : colors.border,
+                    ),
+                  ],
+                ),
+                Text('Page ${index + 1}'),
+              ],
+            ),
     );
   }
 }
