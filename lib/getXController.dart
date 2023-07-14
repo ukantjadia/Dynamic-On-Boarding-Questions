@@ -16,7 +16,7 @@ class myController extends GetxController with StateMixin<OnBoardingDataModel> {
 
   getUserData onBoardingData = getUserData();
 
-  List<String> quesTypeList =  <String>['5', '0', '0', '0', '2', '2'];
+  List<String> quesTypeList = <String>['5', '0', '0', '0', '2', '2'];
   // List<String?> mylist ;
   List<String> answer = [
     'have_passport',
@@ -30,24 +30,23 @@ class myController extends GetxController with StateMixin<OnBoardingDataModel> {
   // RxBool isSelected = true.obs;
   RxInt isSelected = 0.obs;
   RxBool yes = false.obs;
-  
 
   List<int> allControlle = List<int>.generate(6, (int index) => index).obs;
-  Map<String, String>? controllerMap; // = {for (var item in quesTypeList) item: 0};
+  Map<String, String>?
+      controllerMap; // = {for (var item in quesTypeList) item: 0};
 
   // getOnBoardingData data = getOnBoardingData();
 
   @override
   void onInit() {
     super.onInit();
-  String? category_id = state?.onboardCategories?[0].onboardQuestions?[0].locale.toString();
-  debugPrint(category_id);
-    // RxInt? totalQues = state?.onboardCategories?[0].onboardQuestions?[0]..id;
+    fetchAPI();
 
+    // RxInt? totalQues = state?.onboardCategories?[0].onboardQuestions?[0]..id;
+    var list2 = state?.message;
 
     controllerMap = {for (var item in quesTypeList) '$item': ''}.obs;
     // Get called when controller is created
-    fetchAPI();
   }
 
   // List questionId = onBoardingData?.onboardCategories..id;
@@ -55,6 +54,16 @@ class myController extends GetxController with StateMixin<OnBoardingDataModel> {
     onBoardingData.getOnBoardingData().then(
       (response) {
         change(response, status: RxStatus.success());
+        
+         OnBoardingDataModel data = response;
+
+         final list = data.onboardCategories;
+
+         for(int i=0;i<(list?.length ?? 0); i++){
+          debugPrint(" $i  ${list?[i].categoryName}");
+         }
+
+        // debugPrint("==========${category_id}");
 
         debugPrint(" from fetch api ${response.userDetail?.email}");
       },

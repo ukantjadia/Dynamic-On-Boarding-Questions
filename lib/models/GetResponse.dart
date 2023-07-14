@@ -19,7 +19,7 @@ class getUserData extends GetConnect {
       debugPrint("Res code from else ${response.statusCode}");
       return Future.error(response.statusText.toString());
     } else {
-      // debugPrint("Res code from if ${response.statusCode}");
+      debugPrint("Res code from if ${response.statusCode}");
       // onBoardingData = OnBoardingDataModel.fromJson(jsonDecode(response.body));
       // debugPrint("Res code from if ${response.bodyString.toString()}");
       return OnBoardingDataModel.fromJson(jsonDecode(response.bodyString!));

@@ -81,7 +81,6 @@ Widget EnterForm(String index) {
   /// for question type :--> enter form question
   ///
   // locate.category_id = Cities() as List;
-  debugPrint("^^^^^^^^^^^${locate.state?.cities?[int.parse(index)].name}");
 
   ///
   int indexInt = int.parse(index);
