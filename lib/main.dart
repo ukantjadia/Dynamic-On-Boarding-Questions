@@ -7,7 +7,7 @@ import 'package:on_boarding_dynamic_que/progressBar.dart';
 import 'checkingForDropdown.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -19,9 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-
       // home: myDropdown(),
-      home : CustomStepper()
+      home: CustomStepper(),
     );
   }
 }

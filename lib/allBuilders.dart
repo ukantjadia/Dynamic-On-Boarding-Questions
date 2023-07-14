@@ -4,6 +4,8 @@ import 'package:on_boarding_dynamic_que/getXController.dart';
 import 'package:on_boarding_dynamic_que/theme/colors.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'models/GetResponse.dart';
+
 class homePage extends StatefulWidget {
   homePage({super.key});
 
@@ -28,48 +30,47 @@ class _homePageState extends State<homePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: colors.bg,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                for (int x = 0; x < locate.myList.length; x++) ...[
-                  if (locate.myList[x] == '5') ...[
-                    // MultipleSelection()
-                    yesNoConatainer(x.toString())
-                  ] else if (locate.myList[x] == '1') ...[
-                    MultipleSelection()
-                  ] else if (locate.myList[x] == '2') ...[
-                    EnterForm(x.toString()),
-                    // yesNoConatainer(x.toString())
-                  ] else ...[
-                    Text("not mention ${x}")
-                  ]
-
-
-
-                  
-                ],
-                ElevatedButton(
-                    onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => test(),
-                      //   ),
-                      // );
-                      debugPrint("   ${locate.myList}");
-                    },
-                    child: Text("to send data")),
-              ],
-            ),
-          ),
-        ),
-      ),
+          backgroundColor: colors.bg,
+          body: locate.obx((state) {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    for (int x = 0; x < locate.quesTypeList.length; x++) ...[
+                      if (locate.quesTypeList[x] == '5') ...[
+                        // MultipleSelection()
+                        // EnterForm(x.toString())
+                        yesNoConatainer(x.toString())
+                      ] else if (locate.quesTypeList[x] == '1') ...[
+                        // MultipleSelection()
+                      ] else if (locate.quesTypeList[x] == '2') ...[
+                        // EnterForm(x.toString()),
+                        yesNoConatainer(x.toString())
+                      ] else ...[
+                        Text("not mention ${x}")
+                      ]
+                    ],
+                    ElevatedButton(
+                        onPressed: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => test(),
+                          //   ),
+                          // );
+                          debugPrint("   ${locate.quesTypeList}");
+                        },
+                        child: Text("to send data")),
+                    Text("${locate.state?.cities?[0].name}")
+                  ],
+                ),
+              ),
+            );
+          })),
       // ),
     );
   }
@@ -79,15 +80,21 @@ Widget EnterForm(String index) {
   ///
   /// for question type :--> enter form question
   ///
+  // locate.category_id = Cities() as List;
+  debugPrint("^^^^^^^^^^^${locate.state?.cities?[int.parse(index)].name}");
+
+  ///
   int indexInt = int.parse(index);
+  String? ukant = locate.state?.cities?[int.parse(index)].name.toString();
   return Column(
     children: [
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(
-          // initialValue: ,
+          // initialValue: "${onBoardingData?.userDetail?.email}",
           decoration: InputDecoration(
-            hintText: "${locate.controllerMap?[index] ?? ""}",
+            hintText://"sdfsdfsdf",
+                "${locate.state?.onboardCategories?[0].categoryName}",
             fillColor: colors.bg,
           ),
           onChanged: (value) {
@@ -167,7 +174,7 @@ Widget MultipleSelection() {
         Padding(
           padding: const EdgeInsets.only(bottom: 15),
           child: Text(
-            "Which intake session are you planning to go in?",
+            "dfdfdfsdfsdfadfd",
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
@@ -255,8 +262,8 @@ Widget yesNoConatainer(String index) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Do you have passport ?",
+            Text("sdsfsdfsdf",
+              // "${locate.state?.onboardCategories?[5].onboardQuestions?[5].placeholder}",
               style: TextStyle(color: colors.title, fontSize: 16),
             ),
             Container(
@@ -271,16 +278,26 @@ Widget yesNoConatainer(String index) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  /// * this is yes container
+                  ///* this is a yes container
                   Obx(
                     () => Container(
                       // padding: EdgeInsets.only(top: 5, bottom: 5, right: 5),
                       width: 50,
                       height: 24,
-                      decoration: BoxDecoration(
-                        color: locate.yes.value ? colors.primary : colors.bg,
-                        borderRadius: BorderRadius.circular(40),
-                      ),
+                      decoration: locate.yes.value
+                          ? BoxDecoration(
+                              color: colors.primary,
+                              borderRadius: BorderRadius.circular(40),
+                            )
+                          : BoxDecoration(
+                              color: colors.bg,
+                              borderRadius: BorderRadius.circular(40),
+                              boxShadow: const <BoxShadow>[
+                                  BoxShadow(
+                                      color: Color.fromRGBO(0, 0, 0, 0.14),
+                                      blurRadius: 6.0,
+                                      offset: Offset(0.0, 0.0))
+                                ]),
                       alignment: Alignment.center,
                       child: Text(
                         'Yes',
@@ -297,16 +314,26 @@ Widget yesNoConatainer(String index) {
                     }),
                   ),
 
-                  /// * this is no container
+                  /// * this is a no container
                   Obx(
                     () => Container(
                       // padding: EdgeInsets.only(top: 5, bottom: 5, right: 5),
                       width: 50,
                       height: 24,
-                      decoration: BoxDecoration(
-                        color: locate.yes.value ? colors.bg : colors.primary,
-                        borderRadius: BorderRadius.circular(40),
-                      ),
+                      decoration: locate.yes.value
+                          ? BoxDecoration(
+                              color: colors.bg,
+                              borderRadius: BorderRadius.circular(40),
+                              boxShadow: const <BoxShadow>[
+                                  BoxShadow(
+                                      color: Color.fromRGBO(0, 0, 0, 0.14),
+                                      blurRadius: 6.0,
+                                      offset: Offset(0.0, 0.0))
+                                ])
+                          : BoxDecoration(
+                              color: colors.primary,
+                              borderRadius: BorderRadius.circular(40),
+                            ),
                       alignment: Alignment.center,
                       child: Text(
                         'No',

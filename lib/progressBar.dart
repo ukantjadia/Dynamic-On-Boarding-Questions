@@ -36,67 +36,68 @@ class _CustomStepperState extends State<CustomStepper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'CUSTOM STEPPER',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        appBar: AppBar(
+          title: const Text(
+            'CUSTOM STEPPER',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          //let's add some padding press alt enter
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  for (int category = 0;
-                      category < onBoardingCategories.length;
-                      category++) ...[
-                    StepperComponent(
-                      currentIndex: _currentIndex,
-                      index: category,
-                      onTap: () {
-                        setState(() {
-                          _currentIndex = category;
-                        });
-                        _pageController.jumpToPage(category);
-                      },
-                    ),
-                  ]
-                ],
+        body: control.obx((state) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              //let's add some padding press alt enter
+              const SizedBox(
+                height: 10,
               ),
-            ),
-          ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      for (int category = 0;
+                          category < onBoardingCategories.length;
+                          category++) ...[
+                        StepperComponent(
+                          currentIndex: _currentIndex,
+                          index: category,
+                          onTap: () {
+                            setState(() {
+                              _currentIndex = category;
+                            });
+                            _pageController.jumpToPage(category);
+                          },
+                        ),
+                      ]
+                    ],
+                  ),
+                ),
+              ),
 
-          Expanded(
-            child: Container(
-              child: PageView(
-                //only scroll with bubbles
-                physics: NeverScrollableScrollPhysics(),
-                controller: _pageController,
-                children: [onBoardingCategories[_currentIndex]],
+              Expanded(
+                child: Container(
+                  child: PageView(
+                    //only scroll with bubbles
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _pageController,
+                    children: [onBoardingCategories[_currentIndex]],
+                  ),
+                ),
               ),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                _currentIndex += 1;
-                // control.myList = ["values"];
-                debugPrint("${control.myList}");
-              });
-            },
-            child: const Text("dfsjdflkjsldfkjs"),
-          ),
-        ],
-      ),
-    );
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _currentIndex += 1;
+                    // control.quesTypeList = ["values"];
+                    debugPrint("${control.quesTypeList}");
+                  });
+                },
+                child: Text("dfsjdflkjsldfkjs"),
+              ),
+            ],
+          );
+        }));
   }
 }
 
@@ -122,6 +123,7 @@ class StepperComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     //now let's remove the ligne at the end of the row but also we need to remove unnecessary padding thus we need to remove the expanded
     //widget
+    double desierWith = 0.0;
     return SizedBox(
       child: isLast
           ? Column(
@@ -157,14 +159,16 @@ class StepperComponent extends StatelessWidget {
                   ],
                 ),
                 // //index+1 we dont wanna show 0 in the screen since our index will start at 0
-                Text('Page ${index + 1}'),
+                Text('Pagesdsdfsadf ${index + 1}'),
               ],
             )
           : //Text("sdfjsdlfjsdlfjadfafdalfjaljflakjfdlskjdflasdjflajdf\ndjflsdjflsdf")
           Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
+                  // mainAxisSize: MainAxisSize.max,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //this is the bubble
                     GestureDetector(
@@ -191,17 +195,45 @@ class StepperComponent extends StatelessWidget {
                               : Text('')),
                     ),
                     //this the ligne
+
                     Container(
-                      height: 2,
-                      width: 66,
-                      //why index+1 we want to turn the ligne orange that precede the active bubble
+                      // width: desierWith,
+                      height: 6,
+                      width: 54,
+                      //     //why index+1 we want to turn the ligne orange that precede the active bubble
                       color: currentIndex >= index + 1
                           ? colors.primary
                           : colors.border,
                     ),
+                    // Container(
+                    //     height: 6,
+                    //     width: 100,
+                    //     //why index+1 we want to turn the ligne orange that precede the active bubble
+                    //     color: currentIndex >= index + 1
+                    //         ? colors.primary
+                    //         : colors.border,
+                    //   ),
                   ],
                 ),
-                Text('Page ${index + 1}'),
+                // Container(
+                //   width: 80,
+                //   alignment: Alignment.center,
+                // child:
+                Text(
+                    strutStyle: StrutStyle(),
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                    '${control.state?.onboardCategories?[3].categoryName}',
+                    style: currentIndex >= index
+                        ? TextStyle(
+                            color: colors.primary,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400)
+                        : TextStyle(
+                            color: colors.subtitle,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400)),
+                // ),
               ],
             ),
     );

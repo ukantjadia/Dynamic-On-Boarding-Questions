@@ -8,35 +8,31 @@ class myDropdown extends StatefulWidget {
   @override
   State<myDropdown> createState() => myDdropdownState();
 }
-List<String> myList = <String>['One', 'Two', 'Three', 'Four'];
+
+List<String> quesTypeList = <String>['One', 'Two', 'Three', 'Four'];
 
 class myDdropdownState extends State<myDropdown> {
-  String dropdownvalue = myList.first;
+  String dropdownvalue = quesTypeList.first;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: Center(
           child: Column(
-            mainAxisAlignment : MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               DropdownButton(
                 // value: selected,
-                onChanged: (String? value ){
+                onChanged: (String? value) {
                   setState(() {
                     dropdownvalue = value!;
                   });
-                  
                 },
-                
-                
-                
-                
-                
-                items: myList.map<DropdownMenuItem<String>>((String value){
-                return DropdownMenuItem(child: Text(value),value: value );
-              }).toList(),)
-        
+
+                items: quesTypeList.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem(child: Text(value), value: value);
+                }).toList(),
+              )
             ],
           ),
         ),

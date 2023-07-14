@@ -1,12 +1,12 @@
-class GraddingJsonData {
-  GraddingJsonData({
+class OnBoardingDataModel {
+  OnBoardingDataModel({
       this.status, 
       this.message, 
       this.userDetail, 
       this.onboardCategories, 
       this.cities,});
 
-  GraddingJsonData.fromJson(dynamic json) {
+  OnBoardingDataModel.fromJson(dynamic json) {
     status = json['status'];
     message = json['message'];
     userDetail = json['user_detail'] != null ? UserDetail.fromJson(json['user_detail']) : null;
@@ -119,7 +119,7 @@ class OnboardQuestions {
     questionName = json['question_name'];
     placeholder = json['placeholder'];
     options = json['options'];
-    type = json['type']; // question type
+    type = json['type'];
     attributeName = json['attribute_name'];
     locale = json['locale'];
     createdAt = json['created_at'];
