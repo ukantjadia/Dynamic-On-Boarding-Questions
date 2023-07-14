@@ -41,7 +41,7 @@ class _homePageState extends State<homePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     for (int x = 0; x < locate.quesTypeList.length; x++) ...[
-                      if (locate.quesTypeList[x] == '5') ...[
+                      if (locate.state?.onboardCategories?[x].onboardQuestions == '5') ...[
                         // MultipleSelection()
                         // EnterForm(x.toString())
                         yesNoConatainer(x.toString())

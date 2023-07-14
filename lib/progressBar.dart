@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_boarding_dynamic_que/allBuilders.dart';
+import 'package:on_boarding_dynamic_que/models/onBoardingDataModel.dart';
 
 import 'getXController.dart';
 
@@ -34,6 +35,8 @@ class _CustomStepperState extends State<CustomStepper> {
     first(),
     first(),
   ];
+  List<OnboardCategories> questionList1 = [];
+
   @override
   Widget build(BuildContext context) {
     // final Size size = (TextPainter(
@@ -51,13 +54,14 @@ class _CustomStepperState extends State<CustomStepper> {
     //       ..layout())
     //     .size;
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'CUSTOM STEPPER',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
+      appBar: AppBar(
+        title: const Text(
+          'CUSTOM STEPPER',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        body: control.obx((state) {
+      ),
+      body: control.obx(
+        (state) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -71,8 +75,9 @@ class _CustomStepperState extends State<CustomStepper> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      for (int category = 0;
-                          category < onBoardingCategories.length;
+                      for (int category = 1;
+                          category <=
+                              (control.state?.onboardCategories?.length ?? 0);
                           category++) ...[
                         StepperComponent(
                           currentIndex: _currentIndex,
@@ -87,6 +92,45 @@ class _CustomStepperState extends State<CustomStepper> {
                             _pageController.jumpToPage(category);
                           },
                         ),
+                        for (int questions = 1;
+                            questions <=
+                                (control.state?.onboardCategories?[category]
+                                        .onboardQuestions?.length ??
+                                    0);
+                            questions++) ...[
+                          if (control.state?.onboardCategories?[category]
+                                  .onboardQuestions?[questions].type ==
+                              'enter') ...[
+                            // yesNoConatainer(questions.toString())
+                          ] else if (control.state?.onboardCategories?[category]
+                                  .onboardQuestions?[questions].type ==
+                              'dropdown') ...[
+                            // MultipleSelection()
+                          ] else if (control.state?.onboardCategories?[category]
+                                  .onboardQuestions?[questions].type ==
+                              'switch') ...[
+                            EnterForm(questions.toString()),
+                            yesNoConatainer(questions.toString())
+                          ] else if (control.state?.onboardCategories?[category]
+                                  .onboardQuestions?[questions].type ==
+                              'multiple') ...[
+                            // MultipleSelection()
+                          ] else if (control.state?.onboardCategories?[category]
+                                  .onboardQuestions?[questions].type ==
+                              'date') ...[
+                            // MultipleSelection()
+                          ] else if (control.state?.onboardCategories?[category]
+                                  .onboardQuestions?[questions].type ==
+                              'radio') ...[
+                            // MultipleSelection()
+                          ] else if (control.state?.onboardCategories?[category]
+                                  .onboardQuestions?[questions].type ==
+                              'slider') ...[
+                            // MultipleSelection()
+                          ] else ...[
+                            Text("not mention ${questions}")
+                          ]
+                        ]
                       ]
                     ],
                   ),
@@ -115,7 +159,9 @@ class _CustomStepperState extends State<CustomStepper> {
               ),
             ],
           );
-        }));
+        },
+      ),
+    );
   }
 }
 

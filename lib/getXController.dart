@@ -54,14 +54,16 @@ class myController extends GetxController with StateMixin<OnBoardingDataModel> {
     onBoardingData.getOnBoardingData().then(
       (response) {
         change(response, status: RxStatus.success());
-        
-         OnBoardingDataModel data = response;
 
-         final list = data.onboardCategories;
+        OnBoardingDataModel data = response;
+        List category_name = [];
 
-         for(int i=0;i<(list?.length ?? 0); i++){
+        final list = data.onboardCategories;
+
+        for (int i = 0; i < (list?.length ?? 0); i++) {
           debugPrint(" $i  ${list?[i].categoryName}");
-         }
+          category_name.add(list?[i].categoryName);
+        }
 
         // debugPrint("==========${category_id}");
 
