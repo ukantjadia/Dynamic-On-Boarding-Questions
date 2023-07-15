@@ -1,0 +1,193 @@
+{
+"status": 1,
+"message": "Success",
+"user_detail": {
+"name": "J. Tester",
+"phone": "6376558255",
+"email": "gradding.studyabroad@gmail.com",
+"country_code": "1"
+},
+"onboard_categories": [
+{
+"id": 1,
+"category_name": "Personal Information",
+"onboard_questions": [
+{
+"id": 1,
+"category_id": 1,
+"question_name": "Full Name (As Per Passport Name)",
+"placeholder": "Enter Your Name",
+"options": "",
+"type": "enter",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 2,
+"category_id": 1,
+"question_name": "Mobile number",
+"placeholder": "Add an Alternate Number",
+"options": "",
+"type": "enter",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 3,
+"category_id": 1,
+"question_name": "Country Code",
+"placeholder": null,
+"options": "",
+"type": "dropdown",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 4,
+"category_id": 1,
+"question_name": "Alternate Mobile Number",
+"placeholder": "Enter Mobile Number",
+"options": "",
+"type": "enter",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 5,
+"category_id": 1,
+"question_name": "Email",
+"placeholder": "Add an Alternate Email Id",
+"options": "",
+"type": "enter",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 6,
+"category_id": 1,
+"question_name": "Alternate Email",
+"placeholder": "Enter Email Id",
+"options": "",
+"type": "enter",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 7,
+"category_id": 1,
+"question_name": "gender",
+"placeholder": null,
+"options": "[\"Male\",\"Female\"]",
+"type": "radio",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 8,
+"category_id": 1,
+"question_name": "Do you have passport ?",
+"placeholder": null,
+"options": "",
+"type": "switch",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 9,
+"category_id": 1,
+"question_name": "Passport Number",
+"placeholder": "Enter your Passport Number",
+"options": "",
+"type": "enter",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 10,
+"category_id": 1,
+"question_name": "Date of Expiration",
+"placeholder": "DD/MM/YYYY",
+"options": "",
+"type": "date",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 11,
+"category_id": 1,
+"question_name": "Date Of Birth",
+"placeholder": "DD/MM/YYYY",
+"options": "",
+"type": "date",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 12,
+"category_id": 1,
+"question_name": "Nationality",
+"placeholder": "Select Your Nationality",
+"options": "",
+"type": "dropdown",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+},
+{
+"id": 13,
+"category_id": 1,
+"question_name": "City",
+"placeholder": "Select Your City",
+"options": "",
+"type": "dropdown",
+"attribute_name": "",
+"locale": "en",
+"created_at": null,
+"updated_at": null
+}
+]
+},
+{
+"id": 2,
+"category_name": "Education Preferences",
+"onboard_questions": []
+},
+{
+"id": 3,
+"category_name": "Study Abroad Preferences",
+"onboard_questions": []
+},
+{
+"id": 4,
+"category_name": "Budget Preferences",
+"onboard_questions": []
+},
+{
+"id": 5,
+"category_name": "Test Status",
+"onboard_questions": []
+}
+],

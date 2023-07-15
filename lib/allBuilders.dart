@@ -30,8 +30,9 @@ class _homePageState extends State<homePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: colors.bg,
-          body: locate.obx((state) {
+        backgroundColor: colors.bg,
+        body: locate.obx(
+          (state) {
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
@@ -70,13 +71,15 @@ class _homePageState extends State<homePage> {
                 ),
               ),
             );
-          })),
+          },
+        ),
+      ),
       // ),
     );
   }
 }
 
-Widget EnterForm(String index) {
+Widget EnterForm(int category, String index) {
   ///
   /// for question type :--> enter form question
   ///
@@ -84,7 +87,8 @@ Widget EnterForm(String index) {
 
   ///
   int indexInt = int.parse(index);
-  String? ukant = locate.state?.cities?[int.parse(index)].name.toString();
+  // String? ukant = locate.state?.cities?[int.parse(index)].name.toString();
+  int? id = int.parse(index);
   return Column(
     children: [
       Padding(
@@ -92,9 +96,11 @@ Widget EnterForm(String index) {
         child: TextFormField(
           // initialValue: "${onBoardingData?.userDetail?.email}",
           decoration: InputDecoration(
-            hintText://"sdfsdfsdf",
-                "${locate.state?.onboardCategories?[0].categoryName}",
-            fillColor: colors.bg,
+            labelText:
+                "${locate.state?.onboardCategories?[category].onboardQuestions?[id].questionName}",
+            // hintText: //"sdfsdfsdf",
+            //     "${locate.state?.onboardCategories?[category].onboardQuestions?[id].questionName}",
+            // fillColor: colors.bg,
           ),
           onChanged: (value) {
             locate.name1 = value.obs;
@@ -107,18 +113,20 @@ Widget EnterForm(String index) {
   );
 }
 
-Widget DropdownSingleSelection(String index) {
+Widget DropdownSingleSelection(int category, String index) {
   locate.selected = list[0].obs;
-
   ///Loca
   /// for question type :--> dropdown selection selection
   ///
+  int? id = int.parse(index);
   return Column(
+    crossAxisAlignment : CrossAxisAlignment.stretch,
     children: [
       Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(0.0),
         child: DropdownButton<String>(
-          value: locate.selected.toString(),
+          isExpanded: true,
+          // value: selected2,
           items: list.map<DropdownMenuItem<String>>(
             (String item) {
               return DropdownMenuItem<String>(
@@ -133,6 +141,8 @@ Widget DropdownSingleSelection(String index) {
               );
             },
           ).toList(),
+          hint: Text(
+              "${locate.state?.onboardCategories?[category].onboardQuestions?[id].placeholder}"),
           onChanged: (value) {
             // setState(() {
             // debugPrint("${selected}");
@@ -144,22 +154,24 @@ Widget DropdownSingleSelection(String index) {
           },
         ),
       ),
-      Obx(
-        () => Text(
-          " index from lis builder ${locate.controllerMap?[index]}",
-          style: TextStyle(
-            color: colors.title,
-          ),
-        ),
-      )
+      // Obx(
+      //   () => Text(
+      //     " index from lis builder ${locate.controllerMap?[index]}",
+      //     style: TextStyle(
+      //       color: colors.title,
+      //     ),
+      //   ),
+      // )
     ],
   );
 }
 
-Widget MultipleSelection() {
+Widget RadioSelection(int category, String index) {
   ///
   /// for question type :--> Multiple selection question
   ///
+  int? id = int.parse(index);
+  int? item_count = 5 ?? 0;
   return Container(
     padding: EdgeInsets.all(10),
     width: double.infinity,
@@ -170,25 +182,14 @@ Widget MultipleSelection() {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 15),
-          child: Text(
-            "dfdfdfsdfsdfadfd",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: colors.title,
-            ),
-          ),
-        ),
         GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: list.length >= 3 ? 3 : 2,
+              crossAxisCount: item_count >= 3 ? 3 : 2 ,
               mainAxisSpacing: 15,
               crossAxisSpacing: 17,
               childAspectRatio: 3.05),
           shrinkWrap: true,
-          itemCount: list.length,
+          itemCount: item_count,
           itemBuilder: (context, index) {
             return Obx(
               () {
@@ -221,7 +222,7 @@ Widget MultipleSelection() {
                     child: Center(
                       child: //Text(" ${locate.isSelected.value}")
                           Text(
-                        "Male",
+                        "${locate.state?.onboardCategories?[category].onboardQuestions?[id].options}",
                         style: locate.isSelected == index
                             ? TextStyle(
                                 fontSize: 16,
@@ -244,8 +245,10 @@ Widget MultipleSelection() {
   );
 }
 
-Widget yesNoConatainer(String index) {
+Widget yesNoConatainer(int category, String index) {
   // bool yes = true;
+  int? id = int.parse(index);
+
   return Container(
     padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
     width: double.infinity,
@@ -261,7 +264,8 @@ Widget yesNoConatainer(String index) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("sdsfsdfsdf",
+            Text(
+              "${locate.state?.onboardCategories?[category].onboardQuestions?[id].questionName}",
               // "${locate.state?.onboardCategories?[5].onboardQuestions?[5].placeholder}",
               style: TextStyle(color: colors.title, fontSize: 16),
             ),
@@ -357,7 +361,7 @@ Widget yesNoConatainer(String index) {
         Obx(() => Column(
               children: [
                 if (locate.yes.value == false) ...[
-                  EnterForm(index),
+                  EnterForm(category, index),
                 ] else ...[
                   Container(),
                 ]
@@ -367,5 +371,39 @@ Widget yesNoConatainer(String index) {
         // locate.yes.value ?  : ,
       ],
     ),
+  );
+}
+
+Widget dateEnterForm(int category, String index) {
+  ///
+  /// for question type :--> enter form question
+  ///
+  // locate.category_id = Cities() as List;
+
+  ///
+  int indexInt = int.parse(index);
+  // String? ukant = locate.state?.cities?[int.parse(index)].name.toString();
+  int? id = int.parse(index);
+  return Column(
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextFormField(
+          // initialValue: "${onBoardingData?.userDetail?.email}",
+          decoration: InputDecoration(
+            labelText:
+                "${locate.state?.onboardCategories?[category].onboardQuestions?[id].questionName}",
+            // hintText: //"sdfsdfsdf",
+            //     "${locate.state?.onboardCategories?[category].onboardQuestions?[id].placeholder}",
+            // fillColor: colors.bg,
+          ),
+          onChanged: (value) {
+            locate.name1 = value.obs;
+            locate.controllerMap?[index] = value;
+            debugPrint("${locate.controllerMap}");
+          },
+        ),
+      ),
+    ],
   );
 }

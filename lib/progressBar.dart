@@ -26,20 +26,16 @@ class _CustomStepperState extends State<CustomStepper> {
     super.dispose();
   }
 
-  final homePage homepage = homePage();
+  // final homePage homepage = homePage();
 
-  List<Widget> onBoardingCategories = [
-    homePage(),
-    first(),
-    first(),
-    first(),
-    first(),
-    first(),
-    first(),
-    first(),
-    first(),
-  ];
-  List<OnboardCategories> questionList1 = [];
+  // List<Widget> onBoardingCategories = [
+  //   homePage(),
+  //   // first(),
+  //   // first(),
+  //   // first(),
+  //   // first(),
+  // ];
+  // List<OnboardCategories> questionList1 = [];
 
   @override
   Widget build(BuildContext context) {
@@ -74,21 +70,24 @@ class _CustomStepperState extends State<CustomStepper> {
                 height: 10,
               ),
               Container(
+                color: Colors.greenAccent,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      // ! first loop 
-                      for (int category = 1;
-                          category <=
-                              //(control.state?.onboardCategories?.length ?? 1);
-                          5;
+                      // ! first loop
+                      for (int category = 0;
+                          category <
+                              (control.state?.onboardCategories.length ?? 0);
+                          // 5;
                           category++) ...[
                         StepperComponent(
                           currentIndex: _currentIndex,
                           index: category,
-                          isLast: category <= onBoardingCategories.length - 2
+                          isLast: category <=
+                                  (control.state?.onboardCategories.length ??
+                                      0)
                               ? false
                               : true,
                           onTap: () {
@@ -98,58 +97,134 @@ class _CustomStepperState extends State<CustomStepper> {
                             _pageController.jumpToPage(category);
                           },
                         ),
-                      // ! second loop 
-
-                        for (int questions = 1;
-                            questions <=5;
-                                // (control.state?.onboardCategories?[category].onboardQuestions?.length ?? 1);
-                            questions++) ...[
-                          if (control.state?.onboardCategories?[category]
-                                  .onboardQuestions?[questions].type ==
-                              'enter') ...[
-                            // yesNoConatainer(questions.toString())
-                          ] else if (control.state?.onboardCategories?[category]
-                                  .onboardQuestions?[questions].type ==
-                              'dropdown') ...[
-                            // MultipleSelection()
-                          ] else if (control.state?.onboardCategories?[category]
-                                  .onboardQuestions?[questions].type ==
-                              'switch') ...[
-                            EnterForm(questions.toString()),
-                            yesNoConatainer(questions.toString())
-                          ] else if (control.state?.onboardCategories?[category]
-                                  .onboardQuestions?[questions].type ==
-                              'multiple') ...[
-                            // MultipleSelection()
-                          ] else if (control.state?.onboardCategories?[category]
-                                  .onboardQuestions?[questions].type ==
-                              'date') ...[
-                            // MultipleSelection()
-                          ] else if (control.state?.onboardCategories?[category]
-                                  .onboardQuestions?[questions].type ==
-                              'radio') ...[
-                            // MultipleSelection()
-                          ] else if (control.state?.onboardCategories?[category]
-                                  .onboardQuestions?[questions].type ==
-                              'slider') ...[
-                            // MultipleSelection()
-                          ] else ...[
-                            Text("not mention ${questions}")
-                          ]
-                        ]
+                        Text(
+                            "${control.state?.onboardCategories[category].categoryName}"),
                       ]
                     ],
                   ),
                 ),
               ),
-
               Expanded(
                 child: Container(
                   child: PageView(
                     //only scroll with bubbles
                     physics: NeverScrollableScrollPhysics(),
                     controller: _pageController,
-                    children: [onBoardingCategories[_currentIndex]],
+                    children: [
+                      locate.obx(
+                        (state) {
+                          return SingleChildScrollView(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 20, right: 20),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      "asldfjasldjfasldjfasldf   ${_currentIndex}"),
+                                  Text(
+                                      "${control.state?.onboardCategories[_currentIndex].categoryName}"),
+                                  for (int questions = 0;
+                                      questions < //5;
+                                          (control
+                                                  .state
+                                                  ?.onboardCategories[
+                                                      _currentIndex]
+                                                  .onboardQuestions
+                                                  .length ??
+                                              1);
+                                      questions++) ...[
+                                    // Text("from the nested loop ${control.state?.onboardCategories?[_currentIndex].onboardQuestions?[questions].questionName }"),
+                                    // Text("Question no index ====$questions"),
+                                    if (control
+                                            .state
+                                            ?.onboardCategories[_currentIndex]
+                                            .onboardQuestions[questions]
+                                            .type ==
+                                        'enter') ...[
+                                      EnterForm(_currentIndex, questions.toString())
+                                    ] else if (control
+                                            .state
+                                            ?.onboardCategories[_currentIndex]
+                                            .onboardQuestions[questions]
+                                            .type ==
+                                        'radio') ...[
+                                      RadioSelection(_currentIndex,questions.toString())
+                                    ] else if (control
+                                            .state
+                                            ?.onboardCategories[_currentIndex]
+                                            .onboardQuestions[questions]
+                                            .type ==
+                                        'switch') ...[
+                                      yesNoConatainer(_currentIndex ,questions.toString())
+                                    ] else if (control
+                                            .state
+                                            ?.onboardCategories[_currentIndex]
+                                            .onboardQuestions[questions]
+                                            .type ==
+                                        'multiple') ...[
+                                      Text("Will be ready soon of type ${control.state?.onboardCategories[_currentIndex].onboardQuestions[questions].type}")
+                                    ] else if (control
+                                            .state
+                                            ?.onboardCategories[_currentIndex]
+                                            .onboardQuestions[questions]
+                                            .type ==
+                                        'date') ...[
+                                            dateEnterForm(_currentIndex, questions.toString())
+                                      // Text("Will be ready soon of type ${control.state?.onboardCategories?[_currentIndex].onboardQuestions?[questions].type}")
+                                      // MultipleSelection()
+                                    ] else if (control
+                                            .state
+                                            ?.onboardCategories[_currentIndex]
+                                            .onboardQuestions[questions]
+                                            .type ==
+                                        'radio') ...[
+                                      // Text("Will be ready soon of type ${control.state?.onboardCategories?[_currentIndex].onboardQuestions?[questions].type}")
+                                      RadioSelection(_currentIndex,questions.toString())
+                                    ] else if (control
+                                            .state
+                                            ?.onboardCategories[_currentIndex]
+                                            .onboardQuestions[questions]
+                                            .type ==
+                                        'slider') ...[
+                                      Text("Will be ready soon of type ${control.state?.onboardCategories[_currentIndex].onboardQuestions[questions].type}")
+                                      // MultipleSelection()
+                                    ] else if (control
+                                            .state
+                                            ?.onboardCategories[_currentIndex]
+                                            .onboardQuestions[questions]
+                                            .type ==
+                                        'dropdown') ...[
+                                      DropdownSingleSelection(_currentIndex,questions.toString()),
+
+                                      // Text("Will be ready soon of type ${control.state?.onboardCategories?[_currentIndex].onboardQuestions?[questions].type}")
+                                    ] else ...[
+                                      Text(" Type : ${control.state?.onboardCategories[_currentIndex].onboardQuestions[questions].type} no not mention ${questions}")
+                                    ]
+                                  ],
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) => test(),
+                                        //   ),
+                                        // );
+                                        debugPrint("   ${locate.quesTypeList}");
+                                      },
+                                      child: Text("to send data")),
+                                  Text("${locate.state?.cities[0].name}")
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      //! old calling of pages
+                      // onBoardingCategories[_currentIndex],
+                    ],
                   ),
                 ),
               ),
@@ -290,7 +365,7 @@ class StepperComponent extends StatelessWidget {
                       strutStyle: StrutStyle(),
                       textAlign: TextAlign.center,
                       softWrap: true,
-                      '${control.state?.onboardCategories?[4].categoryName}',
+                      '${control.state?.onboardCategories[4].categoryName}',
                       style: currentIndex >= index
                           ? TextStyle(
                               color: colors.primary,
