@@ -25,20 +25,10 @@ class _CustomStepperState extends State<CustomStepper> {
     _pageController.dispose();
     super.dispose();
   }
-
-  // final homePage homepage = homePage();
-
-  // List<Widget> onBoardingCategories = [
-  //   homePage(),
-  //   // first(),
-  //   // first(),
-  //   // first(),
-  //   // first(),
-  // ];
-  // List<OnboardCategories> questionList1 = [];
-
   @override
   Widget build(BuildContext context) {
+    control.type.value = 0;
+
     // final Size size = (TextPainter(
     //         text: TextSpan(
     //             text: control.state?.onboardCategories?[3].categoryName
@@ -55,8 +45,8 @@ class _CustomStepperState extends State<CustomStepper> {
     //     .size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'CUSTOM STEPPER',
+        title: Text(
+          '${control.state?.onboardCategories?[_currentIndex].categoryName}',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
@@ -70,7 +60,7 @@ class _CustomStepperState extends State<CustomStepper> {
                 height: 10,
               ),
               Container(
-                color: Colors.greenAccent,
+                // color: Colors.greenAccent,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -79,14 +69,14 @@ class _CustomStepperState extends State<CustomStepper> {
                       // ! first loop
                       for (int category = 0;
                           category <
-                              (control.state?.onboardCategories.length ?? 0);
+                              (control.state?.onboardCategories?.length ?? 0);
                           // 5;
                           category++) ...[
                         StepperComponent(
                           currentIndex: _currentIndex,
                           index: category,
                           isLast: category <=
-                                  (control.state?.onboardCategories.length ??
+                                  (control.state?.onboardCategories?.length ??
                                       0)
                               ? false
                               : true,
@@ -97,8 +87,8 @@ class _CustomStepperState extends State<CustomStepper> {
                             _pageController.jumpToPage(category);
                           },
                         ),
-                        Text(
-                            "${control.state?.onboardCategories[category].categoryName}"),
+                        // Text(
+                        //     "${control.state?.onboardCategories?[category].categoryName}"),
                       ]
                     ],
                   ),
@@ -125,14 +115,14 @@ class _CustomStepperState extends State<CustomStepper> {
                                   Text(
                                       "asldfjasldjfasldjfasldf   ${_currentIndex}"),
                                   Text(
-                                      "${control.state?.onboardCategories[_currentIndex].categoryName}"),
+                                      "${control.state?.onboardCategories?[_currentIndex].categoryName}"),
                                   for (int questions = 0;
                                       questions < //5;
                                           (control
                                                   .state
-                                                  ?.onboardCategories[
+                                                  ?.onboardCategories?[
                                                       _currentIndex]
-                                                  .onboardQuestions
+                                                  .onboardQuestions!
                                                   .length ??
                                               1);
                                       questions++) ...[
@@ -140,68 +130,77 @@ class _CustomStepperState extends State<CustomStepper> {
                                     // Text("Question no index ====$questions"),
                                     if (control
                                             .state
-                                            ?.onboardCategories[_currentIndex]
-                                            .onboardQuestions[questions]
+                                            ?.onboardCategories![_currentIndex]
+                                            .onboardQuestions?[questions]
                                             .type ==
                                         'enter') ...[
-                                      EnterForm(_currentIndex, questions.toString())
+                                      EnterForm(
+                                          _currentIndex, questions.toString())
                                     ] else if (control
                                             .state
-                                            ?.onboardCategories[_currentIndex]
-                                            .onboardQuestions[questions]
+                                            ?.onboardCategories?[_currentIndex]
+                                            .onboardQuestions?[questions]
                                             .type ==
                                         'radio') ...[
-                                      RadioSelection(_currentIndex,questions.toString())
+                                      RadioSelection(
+                                          _currentIndex, questions.toString())
                                     ] else if (control
                                             .state
-                                            ?.onboardCategories[_currentIndex]
-                                            .onboardQuestions[questions]
+                                            ?.onboardCategories?[_currentIndex]
+                                            .onboardQuestions?[questions]
                                             .type ==
                                         'switch') ...[
-                                      yesNoConatainer(_currentIndex ,questions.toString())
+                                      yesNoConatainer(
+                                          _currentIndex, questions.toString())
                                     ] else if (control
                                             .state
-                                            ?.onboardCategories[_currentIndex]
-                                            .onboardQuestions[questions]
+                                            ?.onboardCategories?[_currentIndex]
+                                            .onboardQuestions?[questions]
                                             .type ==
                                         'multiple') ...[
-                                      Text("Will be ready soon of type ${control.state?.onboardCategories[_currentIndex].onboardQuestions[questions].type}")
+                                      Text(
+                                          "Will be ready soon of type ${control.state?.onboardCategories?[_currentIndex].onboardQuestions?[questions].type}")
                                     ] else if (control
                                             .state
-                                            ?.onboardCategories[_currentIndex]
-                                            .onboardQuestions[questions]
+                                            ?.onboardCategories?[_currentIndex]
+                                            .onboardQuestions?[questions]
                                             .type ==
                                         'date') ...[
-                                            dateEnterForm(_currentIndex, questions.toString())
+                                      dateEnterForm(
+                                          _currentIndex, questions.toString())
                                       // Text("Will be ready soon of type ${control.state?.onboardCategories?[_currentIndex].onboardQuestions?[questions].type}")
                                       // MultipleSelection()
                                     ] else if (control
                                             .state
-                                            ?.onboardCategories[_currentIndex]
-                                            .onboardQuestions[questions]
+                                            ?.onboardCategories?[_currentIndex]
+                                            .onboardQuestions?[questions]
                                             .type ==
                                         'radio') ...[
                                       // Text("Will be ready soon of type ${control.state?.onboardCategories?[_currentIndex].onboardQuestions?[questions].type}")
-                                      RadioSelection(_currentIndex,questions.toString())
+                                      RadioSelection(
+                                          _currentIndex, questions.toString())
                                     ] else if (control
                                             .state
-                                            ?.onboardCategories[_currentIndex]
-                                            .onboardQuestions[questions]
+                                            ?.onboardCategories?[_currentIndex]
+                                            .onboardQuestions?[questions]
                                             .type ==
                                         'slider') ...[
-                                      Text("Will be ready soon of type ${control.state?.onboardCategories[_currentIndex].onboardQuestions[questions].type}")
+                                      Text(
+                                          "Will be ready soon of type ${control.state?.onboardCategories?[_currentIndex].onboardQuestions?[questions].type}")
                                       // MultipleSelection()
                                     ] else if (control
                                             .state
-                                            ?.onboardCategories[_currentIndex]
-                                            .onboardQuestions[questions]
+                                            ?.onboardCategories?[_currentIndex]
+                                            .onboardQuestions?[questions]
                                             .type ==
                                         'dropdown') ...[
-                                      DropdownSingleSelection(_currentIndex,questions.toString()),
+                                      DropdownSingleSelection(
+                                          _currentIndex, questions.toString()),
 
                                       // Text("Will be ready soon of type ${control.state?.onboardCategories?[_currentIndex].onboardQuestions?[questions].type}")
                                     ] else ...[
-                                      Text(" Type : ${control.state?.onboardCategories[_currentIndex].onboardQuestions[questions].type} no not mention ${questions}")
+                                      Text(
+                                          " Type : ${control.state?.onboardCategories?[_currentIndex].onboardQuestions?[questions].type} no not mention ${questions}")
                                     ]
                                   ],
                                   ElevatedButton(
@@ -215,7 +214,7 @@ class _CustomStepperState extends State<CustomStepper> {
                                         debugPrint("   ${locate.quesTypeList}");
                                       },
                                       child: Text("to send data")),
-                                  Text("${locate.state?.cities[0].name}")
+                                  Text("${locate.state?.cities?[0].name}")
                                 ],
                               ),
                             ),
@@ -306,7 +305,7 @@ class StepperComponent extends StatelessWidget {
                   ],
                 ),
                 // //index+1 we dont wanna show 0 in the screen since our index will start at 0
-                Text('Pagesdsdfsadf ${index + 1}'),
+                // Text('Pagesdsdfsadf ${index + 1}'),
               ],
             )
           : //Text("sdfjsdlfjsdlfjadfafdalfjaljflakjfdlskjdflasdjflajdf\ndjflsdjflsdf")
@@ -323,7 +322,7 @@ class StepperComponent extends StatelessWidget {
                     GestureDetector(
                       onTap: onTap,
                       child: Container(
-                          padding: EdgeInsets.only(left: 40, right: 50),
+                          // padding: EdgeInsets.only(left: 40, right: 50),
                           width: 30,
                           height: 30,
                           decoration: BoxDecoration(
@@ -359,13 +358,14 @@ class StepperComponent extends StatelessWidget {
                 // Container(
 
                 Container(
-                  width: 62,
+                  color: colors.secondaryBg,
+                  width: 72,
                   height: 30,
                   child: Text(
                       strutStyle: StrutStyle(),
                       textAlign: TextAlign.center,
                       softWrap: true,
-                      '${control.state?.onboardCategories[4].categoryName}',
+                      '${control.state?.onboardCategories?[index].categoryName}',
                       style: currentIndex >= index
                           ? TextStyle(
                               color: colors.primary,

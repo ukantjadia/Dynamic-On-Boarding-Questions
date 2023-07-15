@@ -43,12 +43,12 @@ class myController extends GetxController with StateMixin<OnBoardingDataModel> {
     fetchAPI();
 
     // RxInt? totalQues = state?.onboardCategories?[0].onboardQuestions?[0]..id;
-    var list2 = state?.message;
 
     controllerMap = {for (var item in quesTypeList) '$item': ''}.obs;
     // Get called when controller is created
   }
 
+  List category_name = [].obs;
   // List questionId = onBoardingData?.onboardCategories..id;
   void fetchAPI() {
     onBoardingData.getOnBoardingData().then(
@@ -56,7 +56,6 @@ class myController extends GetxController with StateMixin<OnBoardingDataModel> {
         change(response, status: RxStatus.success());
 
         OnBoardingDataModel data = response;
-        List category_name = [];
 
         final list = data.onboardCategories;
 

@@ -194,6 +194,7 @@ Widget RadioSelection(int category, String index) {
             return Obx(
               () {
                 return GestureDetector(
+                  
                   onTap: () {
                     locate.isSelected.value = index;
                     debugPrint(' ${locate.isSelected}');
@@ -222,7 +223,7 @@ Widget RadioSelection(int category, String index) {
                     child: Center(
                       child: //Text(" ${locate.isSelected.value}")
                           Text(
-                        "${locate.state?.onboardCategories?[category].onboardQuestions?[id].options}",
+                        "${locate.state?.onboardCategories![category].onboardQuestions?[id].options}",
                         style: locate.isSelected == index
                             ? TextStyle(
                                 fontSize: 16,
@@ -234,6 +235,7 @@ Widget RadioSelection(int category, String index) {
                                 fontWeight: FontWeight.w400),
                       ),
                     ),
+
                   ),
                 );
               },
