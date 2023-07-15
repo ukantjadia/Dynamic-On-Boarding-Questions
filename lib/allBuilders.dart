@@ -40,20 +40,20 @@ class _homePageState extends State<homePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    for (int x = 0; x < locate.quesTypeList.length; x++) ...[
-                      if (locate.state?.onboardCategories?[x].onboardQuestions == '5') ...[
-                        // MultipleSelection()
-                        // EnterForm(x.toString())
-                        yesNoConatainer(x.toString())
-                      ] else if (locate.quesTypeList[x] == '1') ...[
-                        // MultipleSelection()
-                      ] else if (locate.quesTypeList[x] == '2') ...[
-                        // EnterForm(x.toString()),
-                        yesNoConatainer(x.toString())
-                      ] else ...[
-                        Text("not mention ${x}")
-                      ]
-                    ],
+                    // for (int x = 0; x < locate.quesTypeList.length; x++) ...[
+                    //   if (locate.state?.onboardCategories?[x].onboardQuestions == '5') ...[
+                    //     // MultipleSelection()
+                    //     // EnterForm(x.toString())
+                    //     yesNoConatainer(x.toString())
+                    //   ] else if (locate.quesTypeList[x] == '1') ...[
+                    //     // MultipleSelection()
+                    //   ] else if (locate.quesTypeList[x] == '2') ...[
+                    //     // EnterForm(x.toString()),
+                    //     yesNoConatainer(x.toString())
+                    //   ] else ...[
+                    //     Text("not mention ${x}")
+                    //   ]
+                    // ],
                     ElevatedButton(
                         onPressed: () {
                           // Navigator.push(

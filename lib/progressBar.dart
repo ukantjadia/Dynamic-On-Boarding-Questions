@@ -34,6 +34,10 @@ class _CustomStepperState extends State<CustomStepper> {
     first(),
     first(),
     first(),
+    first(),
+    first(),
+    first(),
+    first(),
   ];
   List<OnboardCategories> questionList1 = [];
 
@@ -75,9 +79,11 @@ class _CustomStepperState extends State<CustomStepper> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
+                      // ! first loop 
                       for (int category = 1;
                           category <=
-                              (control.state?.onboardCategories?.length ?? 0);
+                              //(control.state?.onboardCategories?.length ?? 1);
+                          5;
                           category++) ...[
                         StepperComponent(
                           currentIndex: _currentIndex,
@@ -92,11 +98,11 @@ class _CustomStepperState extends State<CustomStepper> {
                             _pageController.jumpToPage(category);
                           },
                         ),
+                      // ! second loop 
+
                         for (int questions = 1;
-                            questions <=
-                                (control.state?.onboardCategories?[category]
-                                        .onboardQuestions?.length ??
-                                    0);
+                            questions <=5;
+                                // (control.state?.onboardCategories?[category].onboardQuestions?.length ?? 1);
                             questions++) ...[
                           if (control.state?.onboardCategories?[category]
                                   .onboardQuestions?[questions].type ==
