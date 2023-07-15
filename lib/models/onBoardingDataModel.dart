@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
+
 class OnBoardingDataModel {
   OnBoardingDataModel({
       this.status, 
@@ -28,7 +32,6 @@ class OnBoardingDataModel {
   UserDetail? userDetail;
   List<OnboardCategories>? onboardCategories;
   List<Cities>? cities;
-
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['status'] = status;
@@ -95,10 +98,12 @@ class OnboardCategories {
     if (onboardQuestions != null) {
       map['onboard_questions'] = onboardQuestions?.map((v) => v.toJson()).toList();
     }
+    
     return map;
   }
 
 }
+
 
 class OnboardQuestions {
   OnboardQuestions({
@@ -112,13 +117,13 @@ class OnboardQuestions {
       this.locale, 
       this.createdAt, 
       this.updatedAt,});
-
   OnboardQuestions.fromJson(dynamic json) {
     id = json['id'];
     categoryId = json['category_id'];
     questionName = json['question_name'];
     placeholder = json['placeholder'];
     options = json['options'];
+    // debugPrint("${json['options']}");
     type = json['type'];
     attributeName = json['attribute_name'];
     locale = json['locale'];

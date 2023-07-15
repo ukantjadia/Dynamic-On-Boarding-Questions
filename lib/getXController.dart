@@ -10,6 +10,7 @@ class myController extends GetxController with StateMixin<OnBoardingDataModel> {
   var name1 = "".obs;
   var mobile = "".obs;
   RxInt type = 0.obs;
+  RxInt mainIndex = 0.obs;
 
   // getOnBoardingData () async{
   // }
@@ -55,14 +56,14 @@ class myController extends GetxController with StateMixin<OnBoardingDataModel> {
       (response) {
         change(response, status: RxStatus.success());
 
-        OnBoardingDataModel data = response;
+        // OnBoardingDataModel data = response;
 
-        final list = data.onboardCategories;
+        // final list = data.onboardCategories;
 
-        for (int i = 0; i < (list?.length ?? 0); i++) {
-          debugPrint(" $i  ${list?[i].categoryName}");
-          category_name.add(list?[i].categoryName);
-        }
+        // for (int i = 0; i < (list?.length ?? 0); i++) {
+        //   debugPrint(" $i  ${list?[i].categoryName}");
+        //   category_name.add(list?[i].categoryName);
+        // }
 
         // debugPrint("==========${category_id}");
 
