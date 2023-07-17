@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class AppColors{
+  AppColors._();
   final title = const Color(0xFF24292D);
   final primary  = const Color(0xFF066AC9);
   final border  = const Color(0xFF3F747579);

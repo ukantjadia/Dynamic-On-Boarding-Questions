@@ -1,12 +1,11 @@
-import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
-
 class OnBoardingDataModel {
   OnBoardingDataModel({
       this.status, 
       this.message, 
       this.userDetail, 
+      this.eduactionBoards, 
+      this.nationalities, 
+      this.preferredYears, 
       this.onboardCategories, 
       this.cities,});
 
@@ -14,6 +13,9 @@ class OnBoardingDataModel {
     status = json['status'];
     message = json['message'];
     userDetail = json['user_detail'] != null ? UserDetail.fromJson(json['user_detail']) : null;
+    eduactionBoards = json['eduaction_boards'] != null ? json['eduaction_boards'].cast<String>() : [];
+    nationalities = json['nationalities'] != null ? json['nationalities'].cast<String>() : [];
+    preferredYears = json['preferred_years'] != null ? json['preferred_years'].cast<String>() : [];
     if (json['onboard_categories'] != null) {
       onboardCategories = [];
       json['onboard_categories'].forEach((v) {
@@ -30,8 +32,12 @@ class OnBoardingDataModel {
   num? status;
   String? message;
   UserDetail? userDetail;
+  List<String>? eduactionBoards;
+  List<String>? nationalities;
+  List<String>? preferredYears;
   List<OnboardCategories>? onboardCategories;
   List<Cities>? cities;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['status'] = status;
@@ -39,6 +45,9 @@ class OnBoardingDataModel {
     if (userDetail != null) {
       map['user_detail'] = userDetail?.toJson();
     }
+    map['eduaction_boards'] = eduactionBoards;
+    map['nationalities'] = nationalities;
+    map['preferred_years'] = preferredYears;
     if (onboardCategories != null) {
       map['onboard_categories'] = onboardCategories?.map((v) => v.toJson()).toList();
     }
@@ -98,12 +107,10 @@ class OnboardCategories {
     if (onboardQuestions != null) {
       map['onboard_questions'] = onboardQuestions?.map((v) => v.toJson()).toList();
     }
-    
     return map;
   }
 
 }
-
 
 class OnboardQuestions {
   OnboardQuestions({
@@ -117,13 +124,13 @@ class OnboardQuestions {
       this.locale, 
       this.createdAt, 
       this.updatedAt,});
+
   OnboardQuestions.fromJson(dynamic json) {
     id = json['id'];
     categoryId = json['category_id'];
     questionName = json['question_name'];
     placeholder = json['placeholder'];
     options = json['options'];
-    // debugPrint("${json['options']}");
     type = json['type'];
     attributeName = json['attribute_name'];
     locale = json['locale'];
@@ -161,17 +168,20 @@ class OnboardQuestions {
 class UserDetail {
   UserDetail({
       this.name, 
+      this.lastName, 
       this.phone, 
       this.email, 
       this.countryCode,});
 
   UserDetail.fromJson(dynamic json) {
     name = json['name'];
+    lastName = json['last_name'];
     phone = json['phone'];
     email = json['email'];
     countryCode = json['country_code'];
   }
   String? name;
+  String? lastName;
   String? phone;
   String? email;
   String? countryCode;
@@ -179,6 +189,7 @@ class UserDetail {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['name'] = name;
+    map['last_name'] = lastName;
     map['phone'] = phone;
     map['email'] = email;
     map['country_code'] = countryCode;

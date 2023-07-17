@@ -30,7 +30,7 @@ class myController extends GetxController with StateMixin<OnBoardingDataModel> {
 
   // RxBool isSelected = true.obs;
   RxInt isSelected = 0.obs;
-  RxBool yes = false.obs;
+  // RxBool yes = false.obs;
 
   List<int> allControlle = List<int>.generate(6, (int index) => index).obs;
   Map<String, String>?
